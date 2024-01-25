@@ -484,7 +484,7 @@ action:
                           entity_id: !input light
                       - delay:
                           milliseconds: 250
-                    - conditions: '{{ state_attr(light,"brightness") >= max_brightness }}'
+                    - conditions: '{{ state_attr(light,"brightness") >= (max_brightness * 0.9) }}'
                       increase_brightness: false
                 while: '{{ not increase_brightness }}'
                 sequence:
@@ -498,7 +498,7 @@ action:
                           entity_id: !input light
                       - delay:
                           milliseconds: 250
-                    - conditions: '{{ state_attr(light,"brightness") <= min_brightness }}'
+                    - conditions: '{{ state_attr(light,"brightness") <= (min_brightness * 1.1) }}'
                       increase_brightness: true
                 
               sequence:
