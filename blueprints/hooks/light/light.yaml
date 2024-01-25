@@ -473,7 +473,7 @@ action:
               while: '{{ true }}'
               sequence:
                 while: '{{ increase_brightness }}'
-                sequence:
+                condition:
                   condition: or
                     conditions: 
                       - condition: '{{ state_attr(light,"brightness") < max_brightness }}'
@@ -488,7 +488,7 @@ action:
                       - condition: '{{ state_attr(light,"brightness") >= (max_brightness * 0.9) }}'
                         increase_brightness: false
                 while: '{{ not increase_brightness }}'
-                sequence:
+                condition:
                   condition: or
                     conditions: 
                       - condition: '{{ state_attr(light,"brightness") > min_brightness }}'
