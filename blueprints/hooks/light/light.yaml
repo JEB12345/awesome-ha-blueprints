@@ -482,7 +482,8 @@ action:
                                 milliseconds: 250
                         - conditions: '{{ state_attr(light,"brightness") >= (max_brightness * 0.9) }}'
                           sequence:
-                            increase_brightness: false
+                            variable:
+                              increase_brightness: false
                   - conditions: '{{ not increase_brightness }}'
                     sequence:
                       - choose:
@@ -497,7 +498,8 @@ action:
                                 milliseconds: 250
                         - conditions: '{{ state_attr(light,"brightness") <= (min_brightness * 1.1) }}'
                           sequence:
-                            increase_brightness: true
+                            variable:
+                              increase_brightness: true
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
           # first step for the smooth power on feature: subsequent steps can skip this check since light will be already on
