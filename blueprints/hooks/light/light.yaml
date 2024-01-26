@@ -470,22 +470,26 @@ action:
                 - choose:
                   - conditions: '{{ state_attr(light,"brightness") < max_brightness }}'
                     sequence:
-                      - service: light.turn_on
-                        data:
-                          brightness: '{{ [ [state_attr(light,"brightness")+step_long, min_brightness] | max, max_brightness] | min }}'
-                          transition: 0.25
-                          entity_id: !input light
-                      - delay:
-                          milliseconds: 250
+                      while: '{{ true }}'
+                      sequence:
+                        - service: light.turn_on
+                          data:
+                            brightness: '{{ [ [state_attr(light,"brightness")+step_long, min_brightness] | max, max_brightness] | min }}'
+                            transition: 0.25
+                            entity_id: !input light
+                        - delay:
+                            milliseconds: 250
                   - conditions: '{{ state_attr(light,"brightness") > min_brightness }}'
                     sequence:
-                      - service: light.turn_on
-                        data:
-                          brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
-                          transition: 0.25
-                          entity_id: !input light
-                      - delay:
-                          milliseconds: 250
+                      while: '{{ true }}'
+                      sequence:
+                        - service: light.turn_on
+                          data:
+                            brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
+                            transition: 0.25
+                            entity_id: !input light
+                        - delay:
+                            milliseconds: 250
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
           # first step for the smooth power on feature: subsequent steps can skip this check since light will be already on
