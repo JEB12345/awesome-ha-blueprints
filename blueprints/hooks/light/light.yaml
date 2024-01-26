@@ -480,7 +480,7 @@ action:
                         target:
                           entity_id: light.bedroom
                       - delay:
-                        millisecons: 250
+                        milliseconds: 250
                     while:
                       - condition: not
                         conditions:
@@ -508,7 +508,7 @@ action:
                         target:
                           entity_id: light.bedroom
                       - delay:
-                        millisecons: 250
+                        milliseconds: 250
                     while:
                       - condition: not
                         conditions:
