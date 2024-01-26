@@ -485,11 +485,6 @@ action:
                                 milliseconds: 250
                         - conditions: '{{ state_attr(light,"brightness") == max_brightness }}'
                           sequence:
-                            - delay:
-                              hours: 0
-                              minutes: 0
-                              seconds: 1
-                              milliseconds: 0
                             - service: input_boolean.turn_off
                               target:
                                 entity_id:
@@ -512,11 +507,6 @@ action:
                                 milliseconds: 250
                         - conditions: '{{ state_attr(light,"brightness") <= min_brightness * 1.1 }}'
                           sequence:
-                            - delay:
-                              hours: 0
-                              minutes: 0
-                              seconds: 1
-                              milliseconds: 0
                             - service: input_boolean.turn_on
                               target:
                                 entity_id:
