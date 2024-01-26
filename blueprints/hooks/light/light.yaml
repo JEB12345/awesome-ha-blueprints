@@ -465,10 +465,10 @@ action:
                       milliseconds: !input light_transition
           # else move on to the loop for increasing the light brightness
           - choose:
-            - conditions: '{{ state_attr(light,"brightness") < max_brightness }}'
+            - conditions: '{{ state_attr(light,"brightness") == min_brightness }}'
               sequence:
                 - repeat:
-                  while: '{{ true }}'
+                  while: '{{ state_attr(light,"brightness") > max_brightness }}'
                   sequence:
                     - service: light.turn_on
                       data:
