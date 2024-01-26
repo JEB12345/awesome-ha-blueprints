@@ -464,34 +464,31 @@ action:
                   - delay:
                       milliseconds: !input light_transition
           # else move on to the loop for increasing the light brightness
-          - repeat:
-              while: '{{ true }}'
+          - choose:
+            - conditions: '{{ state_attr(light,"brightness") < max_brightness }}'
               sequence:
-                - choose:
-                  - conditions: '{{ state_attr(light,"brightness") < max_brightness }}'
-                    sequence:
-                      - repeat:
-                        while: '{{ true }}'
-                        sequence:
-                          - service: light.turn_on
-                            data:
-                              brightness: '{{ [ [state_attr(light,"brightness")+step_long, min_brightness] | max, max_brightness] | min }}'
-                              transition: 0.25
-                              entity_id: !input light
-                          - delay:
-                              milliseconds: 250
-                  - conditions: '{{ state_attr(light,"brightness") > min_brightness }}'
-                    sequence:
-                      - repeat:
-                        while: '{{ true }}'
-                        sequence:
-                          - service: light.turn_on
-                            data:
-                              brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
-                              transition: 0.25
-                              entity_id: !input light
-                          - delay:
-                              milliseconds: 250
+                - repeat:
+                  while: '{{ true }}'
+                  sequence:
+                    - service: light.turn_on
+                      data:
+                        brightness: '{{ [ [state_attr(light,"brightness")+step_long, min_brightness] | max, max_brightness] | min }}'
+                        transition: 0.25
+                        entity_id: !input light
+                    - delay:
+                        milliseconds: 250
+            - conditions: '{{ state_attr(light,"brightness") > min_brightness }}'
+              sequence:
+                - repeat:
+                  while: '{{ true }}'
+                  sequence:
+                    - service: light.turn_on
+                      data:
+                        brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
+                        transition: 0.25
+                        entity_id: !input light
+                    - delay:
+                        milliseconds: 250
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
           # first step for the smooth power on feature: subsequent steps can skip this check since light will be already on
