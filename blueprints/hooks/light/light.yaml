@@ -467,7 +467,7 @@ action:
           - choose:
             - conditions: '{{ state_attr(light,"brightness") == min_brightness }}'
               sequence:
-                - repeat:
+                repeat:
                   while: '{{ state_attr(light,"brightness") > max_brightness }}'
                   sequence:
                     - service: light.turn_on
@@ -479,7 +479,7 @@ action:
                         milliseconds: 250
             - conditions: '{{ state_attr(light,"brightness") > min_brightness }}'
               sequence:
-                - repeat:
+                repeat:
                   while: '{{ true }}'
                   sequence:
                     - service: light.turn_on
