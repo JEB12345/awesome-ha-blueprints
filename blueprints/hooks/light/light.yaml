@@ -483,7 +483,7 @@ action:
                                 entity_id: !input light
                             - delay:
                                 milliseconds: 250
-                        - conditions: '{{ state_attr(light,"brightness") == max_brightness }}'
+                        - conditions: '{{ state_attr(light,"brightness") >= max_brightness }}'
                           sequence:
                             - service: input_boolean.turn_off
                               target:
@@ -507,7 +507,7 @@ action:
                                 entity_id: !input light
                             - delay:
                                 milliseconds: 250
-                        - conditions: '{{ state_attr(light,"brightness") <= min_brightness * 1.1 }}'
+                        - conditions: '{{ state_attr(light,"brightness") <= min_brightness}'
                           sequence:
                             - service: input_boolean.turn_on
                               target:
