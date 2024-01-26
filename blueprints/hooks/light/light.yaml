@@ -359,8 +359,8 @@ variables:
     color_modes["Hue - Saturation"] }} {%- elif "color_temp" in supported_color_modes -%} {{ color_modes["Color Temperature"] }} {%- else -%} {{ color_modes["None"] }} {%- endif -%} {%- else -%} {{ color_modes[light_color_mode] }} {%- endif -%}
   step_short: '{{ (max_brightness-min_brightness)/brightness_steps_short }}'
   step_long: '{{ (max_brightness-min_brightness)/brightness_steps_long }}'
-  color_steps_temp: '{{ (10000-1000)/color_steps }}'
-  color_steps_hs: '{{ 360/color_steps }}'
+  color_steps_temp: '{{ (10000-1000) / color_steps }}'
+  color_steps_hs: '{{ 360 / color_steps }}'
 mode: restart
 max_exceeded: silent
 trigger:
