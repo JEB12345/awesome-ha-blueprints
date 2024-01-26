@@ -491,7 +491,7 @@ action:
                                   - input_boolean.brightness_toggle
                               data: {}
                             - delay:
-                                milliseconds: 250
+                                milliseconds: 1000
                   - conditions:
                     - condition: state
                       entity_id: input_boolean.brightness_toggle
@@ -515,7 +515,7 @@ action:
                               target:
                                 entity_id: input_boolean.brightness_toggle
                             - delay:
-                                milliseconds: 250
+                                milliseconds: 1000
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
           # first step for the smooth power on feature: subsequent steps can skip this check since light will be already on
