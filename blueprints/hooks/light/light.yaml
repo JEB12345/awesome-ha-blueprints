@@ -609,7 +609,7 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    color_temp: '{{ state_attr(light,"color_temp")|int + (8000 / 160)|int }}'
+                    color_temp: '{{ state_attr(light,"color_temp")|int + (8000 / 160) }}'
                     transition: 0.25
                   entity_id: !input light
             - conditions: '{{ light_color_mode_id == "hs_color" }}'
@@ -626,7 +626,7 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    color_temp: '{{ [state_attr(light,"color_temp")|int - (8000 / 160)|int, 1]|max }}'
+                    color_temp: '{{ [state_attr(light,"color_temp")|int - (8000 / 160), 1]|max }}'
                     transition: 0.25
                   entity_id: !input light
             - conditions: '{{ light_color_mode_id == "hs_color" }}'
@@ -646,7 +646,7 @@ action:
                     sequence:
                       - service: light.turn_on
                         data:
-                          color_temp: '{{ state_attr(light,"color_temp")|int + (8000 / 160)|int }}'
+                          color_temp: '{{ state_attr(light,"color_temp")|int + (8000 / 160) }}'
                           transition: 0.25
                         entity_id: !input light
                       - delay:
@@ -673,7 +673,7 @@ action:
                     sequence:
                       - service: light.turn_on
                         data:
-                          color_temp: '{{ [state_attr(light,"color_temp")|int - (8000 / 160)|int, 1]|max }}'
+                          color_temp: '{{ [state_attr(light,"color_temp")|int - (8000 / 160), 1]|max }}'
                           transition: 0.25
                         entity_id: !input light
                       - delay:
