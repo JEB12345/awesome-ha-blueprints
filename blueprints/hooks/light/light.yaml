@@ -360,7 +360,7 @@ variables:
   step_short: '{{ (max_brightness-min_brightness)/brightness_steps_short }}'
   step_long: '{{ (max_brightness-min_brightness)/brightness_steps_long }}'
   color_steps_temp: '{{ (10000-1000)/color_steps }}'
-  color_steps_hs: '{{ 360/color_steps }}'
+  color_steps_hs: '{{ 3 }}'
 mode: restart
 max_exceeded: silent
 trigger:
