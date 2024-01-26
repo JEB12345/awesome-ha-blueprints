@@ -359,6 +359,8 @@ variables:
     color_modes["Hue - Saturation"] }} {%- elif "color_temp" in supported_color_modes -%} {{ color_modes["Color Temperature"] }} {%- else -%} {{ color_modes["None"] }} {%- endif -%} {%- else -%} {{ color_modes[light_color_mode] }} {%- endif -%}
   step_short: '{{ (max_brightness-min_brightness)/brightness_steps_short }}'
   step_long: '{{ (max_brightness-min_brightness)/brightness_steps_long }}'
+  color_steps_temp: '{{ (10000-1000)/color_steps }}'
+  color_steps_hs: '{{ 360/color_steps }}'
 mode: restart
 max_exceeded: silent
 trigger:
@@ -610,14 +612,14 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    color_temp: '{{ state_attr(light,"color_temp")|int + (8000 / color_steps) }}'
+                    color_temp: '{{ state_attr(light,"color_temp")|int + (8000 / color_steps_temp) }}'
                     transition: 0.25
                   entity_id: !input light
             - conditions: '{{ light_color_mode_id == "hs_color" }}'
               sequence:
                 - service: light.turn_on
                   data:
-                    hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) + (360 / 3)) % 360, 100] }}'
+                    hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) + (360 / color_steps_hs)) % 360, 100] }}'
                     transition: 0.25
                   entity_id: !input light
       - conditions: '{{ action == color_down and light_color_mode_id != "none" }}'
@@ -627,14 +629,14 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    color_temp: '{{ [state_attr(light,"color_temp")|int - (8000 / color_steps), 1]|max }}'
+                    color_temp: '{{ [state_attr(light,"color_temp")|int - (8000 / color_steps_temp), 1]|max }}'
                     transition: 0.25
                   entity_id: !input light
             - conditions: '{{ light_color_mode_id == "hs_color" }}'
               sequence:
                 - service: light.turn_on
                   data:
-                    hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) - (360 / 3)) % 360, 100] }}'
+                    hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) - (360 / color_steps_hs)) % 360, 100] }}'
                     transition: 0.25
                   entity_id: !input light
       - conditions: '{{ action == color_up_repeat and light_color_mode_id != "none" }}'
@@ -647,7 +649,7 @@ action:
                     sequence:
                       - service: light.turn_on
                         data:
-                          color_temp: '{{ state_attr(light,"color_temp")|int + (8000 / color_steps) }}'
+                          color_temp: '{{ state_attr(light,"color_temp")|int + (8000 / color_steps_temp) }}'
                           transition: 0.25
                         entity_id: !input light
                       - delay:
@@ -659,7 +661,7 @@ action:
                     sequence:
                       - service: light.turn_on
                         data:
-                          hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) + (360 / 3)) % 360, 100] }}'
+                          hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) + (360 / color_steps_hs)) % 360, 100] }}'
                           transition: 0.25
                         entity_id: !input light
                       - delay:
@@ -674,7 +676,7 @@ action:
                     sequence:
                       - service: light.turn_on
                         data:
-                          color_temp: '{{ [state_attr(light,"color_temp")|int - (8000 / color_steps), 1]|max }}'
+                          color_temp: '{{ [state_attr(light,"color_temp")|int - (8000 / color_steps_temp), 1]|max }}'
                           transition: 0.25
                         entity_id: !input light
                       - delay:
@@ -686,7 +688,7 @@ action:
                     sequence:
                       - service: light.turn_on
                         data:
-                          hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) - (360 / 3)) % 360, 100] }}'
+                          hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) - (360 / color_steps_hs)) % 360, 100] }}'
                           transition: 0.25
                         entity_id: !input light
                       - delay:
