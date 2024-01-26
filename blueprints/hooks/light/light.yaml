@@ -481,8 +481,6 @@ action:
                                 brightness: '{{ [ [state_attr(light,"brightness")+step_long, min_brightness] | max, max_brightness] | min }}'
                                 transition: 0.25
                                 entity_id: !input light
-                            - delay:
-                                milliseconds: 250
                         - conditions: '{{ state_attr(light,"brightness") >= max_brightness }}'
                           sequence:
                             - service: input_boolean.turn_off
@@ -503,8 +501,6 @@ action:
                                 brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
                                 transition: 0.25
                                 entity_id: !input light
-                            - delay:
-                                milliseconds: 250
                         - conditions: '{{ state_attr(light,"brightness") <= min_brightness }}'
                           sequence:
                             - service: input_boolean.turn_on
