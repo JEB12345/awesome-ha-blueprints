@@ -479,8 +479,6 @@ action:
                           transition: 0.25
                         target:
                           entity_id: light.bedroom
-                      - delay:
-                        milliseconds: 250
                     while:
                       - condition: not
                         conditions:
@@ -507,8 +505,6 @@ action:
                           transition: 0.25
                         target:
                           entity_id: light.bedroom
-                      - delay:
-                        milliseconds: 250
                     while:
                       - condition: not
                         conditions:
